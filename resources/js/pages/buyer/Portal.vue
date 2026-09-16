@@ -13,7 +13,7 @@
             <!-- Property Cards -->
             <div v-for="item in salesData" :key="item.sale.id" class="bg-white rounded-lg shadow mb-4 overflow-hidden">
                 <!-- Header -->
-                <div class="p-4 bg-gray-50 cursor-pointer hover:bg-gray-100 transition flex justify-between items-center" @click="toggleSale(item.sale.id)">
+                <div class="p-4 bg-gray-50 cursor-pointer hover:bg-gray-100 transition flex justify-between items-center w-[90vw]" @click="toggleSale(item.sale.id)">
                     <div class="flex-1 min-w-0">
                         <h3 class="text-base font-bold text-gray-800 truncate">{{ item.project.name }}</h3>
                         <p class="text-sm text-gray-600">Plot #{{ item.plot.plot_number }}</p>

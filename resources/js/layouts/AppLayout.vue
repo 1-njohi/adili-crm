@@ -138,12 +138,12 @@
 
                 <template v-if="isBuyer">
                     <a
-                        href="#"
+                        href="/buyer/portal"
                         class="flex items-center rounded-lg px-3 py-2 hover:bg-gray-100"
                         @click="sidebarOpen = false"
                         >My Plot</a
                     >
-                    <a
+                    <!-- <a
                         href="#"
                         class="flex items-center rounded-lg px-3 py-2 hover:bg-gray-100"
                         @click="sidebarOpen = false"
@@ -154,7 +154,7 @@
                         class="flex items-center rounded-lg px-3 py-2 hover:bg-gray-100"
                         @click="sidebarOpen = false"
                         >Referrals</a
-                    >
+                    > -->
                 </template>
 
                 <hr class="my-2 lg:hidden" />
