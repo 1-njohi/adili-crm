@@ -15,7 +15,7 @@ class SuperadminSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'phone' => '+254700000000',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('Frida&Joreen@Ad1l1'),
                 'role' => 'superadmin',
                 'is_permanent' => true,
             ]
