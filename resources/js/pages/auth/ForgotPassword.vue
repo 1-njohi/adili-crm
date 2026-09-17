@@ -22,45 +22,82 @@ defineProps<{
 </script>
 
 <template>
-    <Head title="Forgot password" />
+    <Head title="Forgot Password - Adili Real Estate" />
 
-    <div
-        v-if="status"
-        class="mb-4 text-center text-sm font-medium text-green-600"
-    >
-        {{ status }}
-    </div>
+    <div class="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 py-12">
+        <!-- Branding -->
+        <div class="mb-8 text-center">
+            <img
+                src="/logo.png"
+                alt="Adili Real Estate"
+                class="h-20 w-auto mx-auto mb-4"
+            />
+            <p class="text-sm text-gray-500 italic">Defined by Trust</p>
+        </div>
 
-    <div class="space-y-6">
-        <Form v-bind="email.form()" v-slot="{ errors, processing }">
-            <div class="grid gap-2">
-                <Label for="email">Email address</Label>
-                <Input
-                    id="email"
-                    type="email"
-                    name="email"
-                    autocomplete="off"
-                    autofocus
-                    placeholder="email@example.com"
-                />
-                <InputError :message="errors.email" />
+        <!-- Card -->
+        <div class="w-full max-w-md bg-white rounded-2xl shadow-lg ring-1 ring-gray-200 p-6 sm:p-8">
+            <!-- Header -->
+            <div class="mb-6 text-center">
+                <h2 class="text-xl font-bold text-gray-800">Forgot your password?</h2>
+                <p class="mt-1 text-sm text-gray-500">
+                    Enter your email and we'll send you a link to reset it.
+                </p>
             </div>
 
-            <div class="my-6 flex items-center justify-start">
-                <Button
-                    class="w-full"
-                    :disabled="processing"
-                    data-test="email-password-reset-link-button"
+            <!-- Status Message -->
+            <div
+                v-if="status"
+                class="mb-4 rounded-lg bg-green-50 border border-green-200 px-4 py-3 text-center text-sm font-medium text-green-700"
+            >
+                {{ status }}
+            </div>
+
+            <Form v-bind="email.form()" v-slot="{ errors, processing }">
+                <div class="grid gap-2">
+                    <Label for="email" class="text-sm font-medium text-gray-700">
+                        Email address
+                    </Label>
+                    <Input
+                        id="email"
+                        type="email"
+                        name="email"
+                        autocomplete="off"
+                        autofocus
+                        placeholder="you@example.com"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
+                    />
+                    <InputError :message="errors.email" />
+                </div>
+
+                <div class="my-6">
+                    <Button
+                        class="w-full rounded-lg bg-sky-500 px-4 py-3 text-base font-bold text-white shadow-md transition hover:bg-sky-600 disabled:opacity-50"
+                        :disabled="processing"
+                        data-test="email-password-reset-link-button"
+                    >
+                        <Spinner v-if="processing" class="mr-2" />
+                        {{ processing ? 'Sending...' : 'Email reset link' }}
+                    </Button>
+                </div>
+            </Form>
+
+            <div class="text-center text-sm text-gray-600">
+                <span>Remembered it? </span>
+                <TextLink
+                    :href="login()"
+                    class="font-medium text-sky-600 hover:text-sky-700 hover:underline"
                 >
-                    <Spinner v-if="processing" />
-                    Email password reset link
-                </Button>
+                    Back to login
+                </TextLink>
             </div>
-        </Form>
+        </div>
 
-        <div class="space-x-1 text-center text-sm text-muted-foreground">
-            <span>Or, return to</span>
-            <TextLink :href="login()">log in</TextLink>
+        <!-- Footer -->
+        <div class="mt-8 text-center">
+            <p class="text-xs text-gray-400">
+                &copy; {{ new Date().getFullYear() }} Adili Real Estate. All rights reserved.
+            </p>
         </div>
     </div>
 </template>

@@ -19,7 +19,7 @@ import { request } from '@/routes/password';
 defineOptions({
     layout: {
         title: 'Welcome back',
-        description: 'Log in to manage your projects, agents, and sales',
+        description: 'Log in to view your installments and payments',
     },
 });
 
@@ -36,11 +36,12 @@ defineProps<{
     <div class="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 py-12">
         <!-- Branding -->
         <div class="mb-8 text-center">
-            <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-teal-600 text-white text-2xl font-bold mb-4">
-                A
-            </div>
-            <h1 class="text-2xl font-bold text-gray-800">Adili Real Estate</h1>
-            <p class="text-sm text-gray-500 mt-1">Your Property Portal</p>
+            <img
+                src="/logo.png"
+                alt="Adili Real Estate"
+                class="h-20 w-auto mx-auto mb-4"
+            />
+            <p class="text-sm text-gray-500 italic">Defined by Trust</p>
         </div>
 
         <!-- Login Card -->
@@ -48,7 +49,7 @@ defineProps<{
             <!-- Header -->
             <div class="mb-6 text-center">
                 <h2 class="text-xl font-bold text-gray-800">Welcome back</h2>
-                <p class="mt-1 text-sm text-gray-500">Log in to manage your projects, agents, and sales</p>
+                <p class="mt-1 text-sm text-gray-500">Log in to view your plot, payments, and referrals</p>
             </div>
 
             <!-- Status Message -->
@@ -78,8 +79,8 @@ defineProps<{
                         autofocus
                         :tabindex="1"
                         autocomplete="email"
-                        placeholder="you@adilirealestate.com"
-                        class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-200"
+                        placeholder="you@example.com"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
                     />
                     <InputError :message="errors.email" />
                 </div>
@@ -93,7 +94,7 @@ defineProps<{
                         <TextLink
                             v-if="canResetPassword"
                             :href="request()"
-                            class="text-sm text-teal-600 hover:text-teal-700 hover:underline"
+                            class="text-sm text-sky-600 hover:text-sky-700 hover:underline"
                             :tabindex="5"
                         >
                             Forgot password?
@@ -106,7 +107,7 @@ defineProps<{
                         :tabindex="2"
                         autocomplete="current-password"
                         placeholder="Enter your password"
-                        class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-200"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
                     />
                     <InputError :message="errors.password" />
                 </div>
@@ -118,7 +119,7 @@ defineProps<{
                             id="remember"
                             name="remember"
                             :tabindex="3"
-                            class="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                            class="rounded border-gray-300 text-sky-500 focus:ring-sky-500"
                         />
                         <span>Remember me for 30 days</span>
                     </Label>
@@ -127,14 +128,36 @@ defineProps<{
                 <!-- Login Button -->
                 <Button
                     type="submit"
-                    class="mt-2 w-full rounded-lg bg-teal-600 px-4 py-3 text-base font-bold text-white shadow-md transition hover:bg-teal-700 disabled:opacity-50"
+                    class="mt-2 w-full rounded-lg bg-sky-500 px-4 py-3 text-base font-bold text-white shadow-md transition hover:bg-sky-600 disabled:opacity-50"
                     :tabindex="4"
                     :disabled="processing"
                     data-test="login-button"
                 >
                     <Spinner v-if="processing" class="mr-2" />
-                    {{ processing ? 'Logging in...' : 'Log in to Dashboard' }}
+                    {{ processing ? 'Logging in...' : 'Log in to My Portal' }}
                 </Button>
+
+                <!-- Divider + Register (if available) -->
+                <!-- @chisel-registration -->
+                <div class="relative my-2">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs uppercase">
+                        <span class="bg-white px-3 text-gray-400">or</span>
+                    </div>
+                </div>
+
+                <div class="text-center text-sm text-gray-600">
+                    New to Adili?
+                    <TextLink
+                        :href="register()"
+                        class="font-medium text-sky-600 hover:text-sky-700 hover:underline"
+                    >
+                        Create your buyer account
+                    </TextLink>
+                </div>
+                <!-- @end-chisel-registration -->
             </Form>
         </div>
 

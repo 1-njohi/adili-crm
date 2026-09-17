@@ -27,7 +27,9 @@ Route::get('/test-email', function () {
     return 'Email sent! Check Mailtrap inbox.';
 });
 
-Route::get('/', [PortalController::class, 'index'])->name('home');
+Route::get('/', function() {
+    return Inertia::render('Welcome');
+})->name('home');
 
 Route::get('/ref/{agent?}', [AgentLinkController::class, 'index'])->name('public.microsite');
 Route::post('/capture-lead', [AgentLinkController::class, 'captureLead'])->name('public.capture-lead');
