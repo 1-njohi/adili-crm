@@ -30,7 +30,7 @@ import AppFooter from '@/components/AppFooter.vue';
                 <div class="flex items-center gap-3">
                     <template v-if="$page.props.auth.user">
                         <Link
-                            :href="dashboard()"
+                            href="/buyer/portal"
                             class="rounded-lg bg-sky-500 px-5 py-2.5 text-sm font-bold text-white shadow-md transition hover:bg-sky-600"
                         >
                             Go to My Portal
@@ -95,7 +95,7 @@ import AppFooter from '@/components/AppFooter.vue';
                     >
                         <template v-if="$page.props.auth.user">
                             <Link
-                                :href="dashboard()"
+                                href="/buyer/portal"
                                 class="w-full rounded-xl bg-sky-500 px-8 py-4 text-center text-base font-bold text-white shadow-lg transition hover:bg-sky-600 sm:w-auto"
                             >
                                 Go to My Portal →
