@@ -8,13 +8,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-/* @chisel-registration */
 import { register } from '@/routes';
-/* @end-chisel-registration */
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
-/* @chisel-passkeys */
-/* @end-chisel-passkeys */
 
 defineOptions({
     layout: {
@@ -138,7 +134,6 @@ defineProps<{
                 </Button>
 
                 <!-- Divider + Register (if available) -->
-                <!-- @chisel-registration -->
                 <div class="relative my-2">
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full border-t border-gray-200"></div>
@@ -157,7 +152,6 @@ defineProps<{
                         Create your buyer account
                     </TextLink>
                 </div>
-                <!-- @end-chisel-registration -->
             </Form>
         </div>
 

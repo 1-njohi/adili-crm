@@ -118,6 +118,7 @@ class Installment extends Model
         if ($this->status === 'pending' && $this->due_date->isPast()) {
             $this->update(['status' => 'overdue']);
         }
+
         return $this;
     }
 

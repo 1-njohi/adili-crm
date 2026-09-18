@@ -1,33 +1,33 @@
 <?php
 
-use App\Http\Controllers\Owner\ProjectController;
-use App\Http\Controllers\Owner\PlotController;
-use App\Http\Controllers\Owner\ExpenseController;
-use App\Http\Controllers\Owner\AgentController;
-use App\Http\Controllers\Owner\SearchController;
-use App\Http\Controllers\Owner\DashboardController;
-use App\Http\Controllers\SaleController;
-use App\Http\Controllers\Owner\PaymentController;
-use App\Http\Controllers\Owner\SiteVisitController as OwnerSiteVisitController;
-use App\Http\Controllers\Agent\SiteVisitController as AgentSiteVisitController;
 use App\Http\Controllers\Agent\DashboardController as AgentDashboardController;
-use App\Http\Controllers\Buyer\PortalController;
-use App\Http\Controllers\Public\AgentLinkController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\Agent\LeadController;
-
+use App\Http\Controllers\Agent\SiteVisitController as AgentSiteVisitController;
+use App\Http\Controllers\Buyer\PortalController;
+use App\Http\Controllers\Owner\AgentController;
+use App\Http\Controllers\Owner\DashboardController;
+use App\Http\Controllers\Owner\ExpenseController;
+use App\Http\Controllers\Owner\PaymentController;
+use App\Http\Controllers\Owner\PlotController;
+use App\Http\Controllers\Owner\ProjectController;
+use App\Http\Controllers\Owner\SearchController;
+use App\Http\Controllers\Owner\SiteVisitController as OwnerSiteVisitController;
+use App\Http\Controllers\Public\AgentLinkController;
+use App\Http\Controllers\SaleController;
 use App\Mail\BuyerInvitation;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/test-email', function () {
     $buyer = User::factory()->create(['name' => 'Buyer 3']);
     Mail::to('itest2@example.com')->send(new BuyerInvitation($buyer, 'temporary123'));
+
     return 'Email sent! Check Mailtrap inbox.';
 });
 
-Route::get('/', function() {
+Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
@@ -75,7 +75,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
                 Route::get('/plots/{plot}/sell', [PlotController::class, 'sell'])
                     ->name('plots.sell');
-
 
                 Route::post('/plots/{plot}/sales', [SaleController::class, 'store'])
                     ->name('plots.sell');
@@ -195,4 +194,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 });
 
-require __DIR__ . '/settings.php';
+require __DIR__.'/settings.php';

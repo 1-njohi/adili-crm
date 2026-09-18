@@ -13,6 +13,7 @@ use Inertia\Inertia;
 class SiteVisitController extends Controller
 {
     protected $leadTetherService;
+
     protected $siteVisitService;
 
     public function __construct(LeadTetherService $leadTetherService, SiteVisitService $siteVisitService)

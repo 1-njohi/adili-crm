@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Buyer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sale;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PortalController extends Controller
@@ -20,7 +19,7 @@ class PortalController extends Controller
                 'installments' => function ($query) {
                     $query->orderBy('installment_number', 'asc');
                 },
-                'payments'
+                'payments',
             ])
             ->orderBy('created_at', 'desc')
             ->get();

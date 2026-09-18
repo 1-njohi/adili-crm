@@ -75,7 +75,7 @@
                     >
                         Projects
                     </a>
-                    <a
+                    <!-- <a
                         href="/owner/agents"
                         class="flex items-center rounded-lg px-3 py-2 hover:bg-gray-100"
                         @click="sidebarOpen = false"
@@ -99,7 +99,7 @@
                         class="flex items-center rounded-lg px-3 py-2 hover:bg-gray-100"
                         @click="sidebarOpen = false"
                         >Reports</a
-                    >
+                    > -->
                 </template>
 
                 <template v-if="isAgent">

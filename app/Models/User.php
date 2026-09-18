@@ -68,6 +68,7 @@ class User extends Authenticatable
             ->withPivot('commission_type', 'commission_rate', 'commission_currency', 'status')
             ->withTimestamps();
     }
+
     public function activeProjects()
     {
         return $this->projects()->wherePivot('status', 'active');
@@ -98,5 +99,10 @@ class User extends Authenticatable
     public function activeSalesAsBuyer()
     {
         return $this->salesAsBuyer()->where('status', 'active');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotification($token));
     }
 }

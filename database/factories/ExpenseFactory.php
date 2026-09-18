@@ -20,7 +20,7 @@ class ExpenseFactory extends Factory
             'currency' => 'KES',
             'category' => $this->faker->randomElement([
                 'Land Purchase', 'Survey', 'Roads', 'Water', 'Legal',
-                'Marketing', 'Logistics', 'Client Entertainment', 'Miscellaneous'
+                'Marketing', 'Logistics', 'Client Entertainment', 'Miscellaneous',
             ]),
             'description' => $this->faker->sentence(),
             'incurred_at' => $this->faker->dateTimeBetween('-6 months', 'now'),

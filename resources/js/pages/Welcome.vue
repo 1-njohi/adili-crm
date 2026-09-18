@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import { dashboard, login } from '@/routes';
-/* @chisel-registration */
 import { register } from '@/routes';
 import AppFooter from '@/components/AppFooter.vue';
-/* @end-chisel-registration */
 </script>
 
 <template>

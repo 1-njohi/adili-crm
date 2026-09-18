@@ -3,17 +3,15 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Sale;
-use App\Models\Payment;
-use App\Models\Expense;
-use App\Models\Project;
-use App\Models\Plot;
-use App\Models\LeadTether;
 use App\Models\CommissionRelease;
+use App\Models\Expense;
 use App\Models\Installment;
-use Illuminate\Http\Request;
+use App\Models\LeadTether;
+use App\Models\Payment;
+use App\Models\Plot;
+use App\Models\Project;
+use App\Models\User;
 use Inertia\Inertia;
-use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -47,7 +45,7 @@ class DashboardController extends Controller
         $reservedPlots = Plot::where('status', 'reserved')->count();
 
         // Agents
-        $totalAgents = \App\Models\User::where('role', 'agent')->count();
+        $totalAgents = User::where('role', 'agent')->count();
 
         // Leads
         $totalLeads = LeadTether::count();
@@ -58,6 +56,7 @@ class DashboardController extends Controller
             $query->where('status', 'sold');
         }])->get()->map(function ($project) {
             $project->progress = $project->plots_count > 0 ? round(($project->sold_plots_count / $project->plots_count) * 100, 2) : 0;
+
             return $project;
         });
 

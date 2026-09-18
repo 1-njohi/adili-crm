@@ -2,9 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\SiteVisit;
 use App\Models\Project;
-use App\Models\User;
+use App\Models\SiteVisit;
 use Carbon\Carbon;
 
 class SiteVisitService
@@ -68,7 +67,7 @@ class SiteVisitService
         $itemCounts = [];
         foreach ($completedVisits as $visit) {
             foreach ($visit->checklist as $item) {
-                if (!isset($itemCounts[$item['item']])) {
+                if (! isset($itemCounts[$item['item']])) {
                     $itemCounts[$item['item']] = 0;
                 }
                 if ($item['checked'] ?? false) {

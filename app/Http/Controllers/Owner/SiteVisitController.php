@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\SiteVisit;
-use App\Services\SiteVisitService;
 use App\Services\LeadTetherService;
+use App\Services\SiteVisitService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SiteVisitController extends Controller
 {
     protected $siteVisitService;
+
     protected $leadTetherService;
 
     public function __construct(SiteVisitService $siteVisitService, LeadTetherService $leadTetherService)

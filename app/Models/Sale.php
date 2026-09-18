@@ -24,7 +24,7 @@ class Sale extends Model
         'commission_rate',
         'commission_type',
         'status',
-        'deposit_receipt_path'
+        'deposit_receipt_path',
     ];
 
     protected $casts = [
@@ -150,6 +150,7 @@ class Sale extends Model
     public function getRemainingBalance(): float
     {
         $totalPaid = $this->payments()->sum('amount');
+
         return max(0, $this->total_price - $totalPaid);
     }
 
@@ -159,12 +160,13 @@ class Sale extends Model
             return 0;
         }
         $totalPaid = $this->payments()->sum('amount');
+
         return round(($totalPaid / $this->total_price) * 100, 2);
     }
 
     public function getAgentCommissionTotal(): float
     {
-        if (!$this->commission_rate) {
+        if (! $this->commission_rate) {
             return 0;
         }
 

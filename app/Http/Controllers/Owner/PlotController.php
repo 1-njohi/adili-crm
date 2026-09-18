@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Plot;
 use App\Models\Project;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class PlotController extends Controller
 {
@@ -28,7 +28,7 @@ class PlotController extends Controller
                     },
                     'payments',
                 ]);
-            }
+            },
         ]);
 
         $financialSummary = null;
@@ -92,6 +92,7 @@ class PlotController extends Controller
             'financialSummary' => $financialSummary,
         ]);
     }
+
     public function create(Project $project)
     {
         return Inertia::render('owner/plots/Create', [
@@ -106,7 +107,7 @@ class PlotController extends Controller
                 'required',
                 'integer',
                 // 👇 This makes sure the plot_number is unique only within THIS project
-                Rule::unique('plots', 'plot_number')->where('project_id', $project->id)
+                Rule::unique('plots', 'plot_number')->where('project_id', $project->id),
             ],
             'size' => 'nullable|string|max:255',
             'size_unit' => 'nullable|string|max:50',
@@ -129,7 +130,6 @@ class PlotController extends Controller
         ]);
     }
 
-
     public function sell(Project $project, Plot $plot)
     {
         return Inertia::render('owner/plots/Sell', [
@@ -137,6 +137,7 @@ class PlotController extends Controller
             'plot' => $plot,
         ]);
     }
+
     public function update(Request $request, Project $project, Plot $plot)
     {
         $validated = $request->validate([
@@ -146,7 +147,7 @@ class PlotController extends Controller
                 // 👇 Ignore the current plot, but still scope to the project
                 Rule::unique('plots', 'plot_number')
                     ->where('project_id', $project->id)
-                    ->ignore($plot->id)
+                    ->ignore($plot->id),
             ],
             'size' => 'nullable|string|max:255',
             'size_unit' => 'nullable|string|max:50',

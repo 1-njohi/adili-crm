@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Payment;
 use App\Models\Installment;
+use App\Models\Payment;
 
 class PaymentAllocationService
 {

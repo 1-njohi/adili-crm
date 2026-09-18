@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
-use App\Models\LeadTether;
-use Illuminate\Support\Facades\Crypt;
 
 class AgentController extends Controller
 {
@@ -36,6 +35,7 @@ class AgentController extends Controller
                 } catch (\Exception $e) {
                     $lead->decrypted_email = null;
                 }
+
                 return $lead;
             });
 
@@ -44,13 +44,14 @@ class AgentController extends Controller
             'leads' => $leads,
         ]);
     }
+
     public function index()
     {
         $agents = User::where('role', 'agent')
             ->withCount([
                 'leadTethers as unique_leads_count' => function ($query) {
                     $query->select(\DB::raw('count(distinct phone_hash)'));
-                }
+                },
             ])
             ->get();
 
@@ -188,7 +189,7 @@ class AgentController extends Controller
 
         if ($hasActiveBuyers) {
             return back()->withErrors([
-                'commission' => 'Agent has active buyers. Commission cannot be changed.'
+                'commission' => 'Agent has active buyers. Commission cannot be changed.',
             ]);
         }
 
@@ -261,7 +262,7 @@ class AgentController extends Controller
 
         if ($hasSales) {
             return back()->withErrors([
-                'agent' => 'Agent has sales on this project. Cannot remove.'
+                'agent' => 'Agent has sales on this project. Cannot remove.',
             ]);
         }
 

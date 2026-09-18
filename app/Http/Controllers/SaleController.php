@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
-use App\Models\User;
+use App\Mail\AgentNotification;
+use App\Mail\BuyerInvitation;
+use App\Mail\PaymentRecorded;
 use App\Models\LeadTether;
+use App\Models\Payment;
 use App\Models\Plot;
 use App\Models\Project;
-use App\Models\Payment;
+use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use App\Mail\BuyerInvitation;
-use App\Mail\AgentNotification;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class SaleController extends Controller
 {
@@ -41,7 +42,7 @@ class SaleController extends Controller
             'email' => 'required|email',
             'deposit' => 'required|numeric|min:0',
             'months' => 'required|integer|min:1',
-            'total_price' => 'required|numeric|min:0'
+            'total_price' => 'required|numeric|min:0',
         ]);
 
         // Calculate monthly payment
@@ -52,7 +53,7 @@ class SaleController extends Controller
             ->where('role', 'buyer')
             ->first();
 
-        if (!$buyer) {
+        if (! $buyer) {
             // Check for lead tether by email
             $tether = LeadTether::where('email_encrypted', $validated['email'])->first();
 
@@ -78,7 +79,6 @@ class SaleController extends Controller
                 ));
             }
         }
-
 
         // Get agent from lead tether (if exists)
         $agentId = null;
@@ -107,11 +107,11 @@ class SaleController extends Controller
             'months' => $validated['months'],
             'monthly_payment' => $monthlyPayment,
             'remaining_balance' => $validated['total_price'] - $validated['deposit'],
-            'payment_tier_selected' => $validated['months'] . ' months',
+            'payment_tier_selected' => $validated['months'].' months',
             'commission_rate' => $commissionRate ?? null,
             'commission_type' => $commissionType ?? null,
             'status' => 'active',
-            'deposit_receipt_path' => $receiptPath
+            'deposit_receipt_path' => $receiptPath,
         ]);
 
         $sale->generateInstallments();
@@ -127,6 +127,11 @@ class SaleController extends Controller
             'allocated_to' => 'deposit',
             'notes' => 'Initial deposit payment',
         ]);
+
+        // ✅ Notify buyer of the deposit payment
+        if ($buyer && $buyer->email) {
+            Mail::to($buyer->email)->send(new PaymentRecorded($payment));
+        }
 
         // Update plot status
         $plot->update(['status' => 'sold']);

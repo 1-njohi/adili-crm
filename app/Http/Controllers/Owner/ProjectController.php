@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
@@ -154,7 +154,7 @@ class ProjectController extends Controller
 
         // Handle gallery removal
         $removedGalleries = $request->input('remove_gallery', []);
-        if (!empty($removedGalleries) && $project->gallery_images) {
+        if (! empty($removedGalleries) && $project->gallery_images) {
             $remaining = array_diff($project->gallery_images, $removedGalleries);
             $validated['gallery_images'] = array_values($remaining);
             foreach ($removedGalleries as $removed) {

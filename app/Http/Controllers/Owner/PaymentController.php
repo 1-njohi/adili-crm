@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Sale;
+use App\Mail\PaymentRecorded;
 use App\Models\Payment;
+use App\Models\Sale;
 use App\Services\PaymentAllocationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -25,7 +27,6 @@ class PaymentController extends Controller
             $receiptPath = $request->file('receipt')->store('receipts/payments', 'public');
         }
 
-        // Create payment
         $payment = Payment::create([
             'sale_id' => $sale->id,
             'amount' => $validated['amount'],
@@ -34,12 +35,18 @@ class PaymentController extends Controller
             'receipt_path' => $receiptPath,
             'notes' => $validated['notes'] ?? null,
             'allocated_to' => 'installment',
+            'reconciled_at' => now(),
+            'reconciled_by' => auth()->id(),
         ]);
 
-        // Allocate payment to installments
-        $allocationService = app(PaymentAllocationService::class);
-        $allocationService->allocate($payment);
+        // Allocate to installments
+        app(PaymentAllocationService::class)->allocate($payment);
 
-        return redirect()->back()->with('success', 'Payment recorded and allocated successfully.');
+        // ✅ Send email to buyer with receipt attached
+        if ($sale->buyer && $sale->buyer->email) {
+            Mail::to($sale->buyer->email)->send(new PaymentRecorded($payment));
+        }
+
+        return redirect()->back()->with('success', 'Payment recorded and buyer notified.');
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Project extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $fillable = [
         'name',
         'location',
@@ -103,6 +104,7 @@ class Project extends Model
     {
         return $this->plots()->where('status', 'sold')->count();
     }
+
     public function agents()
     {
         return $this->belongsToMany(User::class, 'agent_project', 'project_id', 'agent_id')

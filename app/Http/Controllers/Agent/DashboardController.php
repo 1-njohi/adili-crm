@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Agent;
 use App\Http\Controllers\Controller;
 use App\Models\LeadTether;
 use App\Models\SiteVisit;
-use App\Models\CommissionRelease;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -40,9 +38,9 @@ class DashboardController extends Controller
         $totalVisits = SiteVisit::where('booked_by_id', $agentId)->count();
 
         $sourceStats = LeadTether::where('agent_id', $agentId)
-        ->select('source_platform', \DB::raw('count(*) as total'))
-        ->groupBy('source_platform')
-        ->get();
+            ->select('source_platform', \DB::raw('count(*) as total'))
+            ->groupBy('source_platform')
+            ->get();
 
         // Ensure this is always an array
         return Inertia::render('agent/Dashboard', [

@@ -3,10 +3,8 @@
 namespace App\Services;
 
 use App\Models\LeadTether;
-use App\Models\User;
-use App\Models\Project;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class LeadTetherService
 {
@@ -46,14 +44,16 @@ class LeadTetherService
             }
 
             // Optionally update other fields if they're new
-            if ($name)
+            if ($name) {
                 $existing->name = $name;
+            }
             if ($email) {
                 $existing->email_hash = hash('sha256', $email);
                 $existing->email_encrypted = Crypt::encryptString($email);
             }
 
             $existing->save();
+
             return $existing;
         }
 
@@ -79,6 +79,7 @@ class LeadTetherService
     public function findTetherByPhone(string $phone): ?LeadTether
     {
         $phoneHash = Hash::make($phone);
+
         return LeadTether::where('phone_hash', $phoneHash)->first();
     }
 
@@ -88,6 +89,7 @@ class LeadTetherService
         $tether->agent_id = $winningAgentId;
         $tether->attribution_conflict = false;
         $tether->save();
+
         return $tether;
     }
 

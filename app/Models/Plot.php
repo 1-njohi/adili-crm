@@ -59,7 +59,7 @@ class Plot extends Model
 
     public function getPriceForTier(string $tier): ?float
     {
-        if (!$this->payment_tiers) {
+        if (! $this->payment_tiers) {
             return null;
         }
 

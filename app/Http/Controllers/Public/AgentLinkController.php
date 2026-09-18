@@ -44,7 +44,7 @@ class AgentLinkController extends Controller
             }
         }
 
-        if (!$agent || $projects->isEmpty()) {
+        if (! $agent || $projects->isEmpty()) {
             return Inertia::render('public/Microsite', [
                 'agent' => $agent,
                 'projects' => [],

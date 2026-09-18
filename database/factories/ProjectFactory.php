@@ -12,8 +12,8 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company() . ' Estate',
-            'location' => $this->faker->city() . ', Diani',
+            'name' => $this->faker->company().' Estate',
+            'location' => $this->faker->city().', Diani',
             'land_size' => '2',
             'land_size_unit' => 'acres',
             'status' => 'draft',
