@@ -8,7 +8,7 @@
     <div style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
         <!-- Logo -->
         <div style="text-align: center; margin-bottom: 24px;">
-            <img src="https://adilirealestate.com/logo.png" alt="Adili Real Estate" style="height: 60px; display: block; margin: 0 auto;">
+            <img src="{{ asset('logo.png') }}" alt="Adili Real Estate" style="height: 60px;"></p>
             <p style="color: #0ea5e9; font-style: italic; font-size: 12px; margin: 4px 0 0;">Defined by Trust</p>
         </div>
 
