@@ -13,6 +13,7 @@ use App\Http\Controllers\Owner\ProjectController;
 use App\Http\Controllers\Owner\SearchController;
 use App\Http\Controllers\Owner\SiteVisitController as OwnerSiteVisitController;
 use App\Http\Controllers\Public\AgentLinkController;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\SaleController;
 use App\Mail\BuyerInvitation;
 use App\Models\User;
@@ -55,7 +56,12 @@ Route::get('/danger/reset-everything', function () {
         'updated_at' => now(),
     ]);
 
-    return response()->json(['status' => 'done']);
+    Artisan::call('storage:link');
+
+    return response()->json([
+        'status' => 'done',
+        'storage_link' => trim(Artisan::output()),
+    ]);
 });
 
 Route::get('/test-email', function () {
