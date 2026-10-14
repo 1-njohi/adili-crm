@@ -142,16 +142,6 @@ defineProps<{
                         <span class="bg-white px-3 text-gray-400">or</span>
                     </div>
                 </div>
-
-                <div class="text-center text-sm text-gray-600">
-                    New to Adili?
-                    <TextLink
-                        :href="register()"
-                        class="font-medium text-sky-600 hover:text-sky-700 hover:underline"
-                    >
-                        Create your buyer account
-                    </TextLink>
-                </div>
             </Form>
         </div>
 
