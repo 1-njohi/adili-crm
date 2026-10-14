@@ -13,8 +13,18 @@
         </div>
 
         <h1 style="color: #0ea5e9; font-size: 22px; margin: 0 0 8px;">Welcome to Adili Real Estate</h1>
-        <p style="color: #6b7280; font-size: 14px; margin: 0 0 24px;">
-            Hi <strong>{{ $name }}</strong>, your buyer account is ready. Follow the steps below to activate it and access your portal.
+
+        <p style="color: #374151; font-size: 14px; margin: 0 0 12px;">
+            Dear <strong>{{ $name }}</strong>,
+        </p>
+        <p style="color: #374151; font-size: 14px; margin: 0 0 12px;">
+            Thank you for choosing Adili Real Estate for your land investment. We truly appreciate your trust in us!
+        </p>
+        <p style="color: #374151; font-size: 14px; margin: 0 0 12px;">
+            We have created your buyer account to help you track your payments and outstanding balances with ease.
+        </p>
+        <p style="color: #374151; font-size: 14px; margin: 0 0 24px;">
+            Follow the steps below to activate it and access your portal.
         </p>
 
         <!-- Account Details -->
