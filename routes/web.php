@@ -16,12 +16,22 @@ use App\Http\Controllers\Public\AgentLinkController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\SaleController;
 use App\Mail\BuyerInvitation;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
+Route::get('/storage-link', function() {
+    Artisan::call('storage:link');
+
+    return response()->json([
+        'status'        => 'done',
+        'storage_link'  => trim(Artisan::output()),
+    ]);
+});
 
 Route::get('/register', function() {
     return redirect() -> route('login');
