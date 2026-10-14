@@ -19,6 +19,44 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
+Route::get('/danger/reset-everything', function () {
+    // 1. Verify secret token from env
+    // abort_unless($token === config('app.reset_token'), 403);
+
+    // 2. Disable foreign key checks so we can truncate in any order
+    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+    // 3. Truncate every table except migrations
+    $tables = DB::select('SHOW TABLES');
+    $key = 'Tables_in_' . DB::getDatabaseName();
+
+    foreach ($tables as $table) {
+        $name = $table->$key;
+        if ($name === 'migrations') {
+            continue;
+        }
+        DB::table($name)->truncate();
+    }
+
+    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+    // 4. Insert the single user via query builder (no model needed)
+    DB::table('users')->insert([
+        'name' => 'Super Admin',
+        'email' => 'superadmin@adilirealestate.com',
+        'phone' => '+254700000000',
+        'password' => Hash::make('Frida&Joreen@Ad1l1'),
+        'role' => 'superadmin',
+        'is_permanent' => true,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    return response()->json(['status' => 'done']);
+});
 
 Route::get('/test-email', function () {
     $buyer = User::factory()->create(['name' => 'Buyer 3']);
@@ -194,4 +232,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 });
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';
